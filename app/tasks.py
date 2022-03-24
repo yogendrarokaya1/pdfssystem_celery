@@ -24,7 +24,7 @@ def test_func(self, ids):
         for length in final_per_obj:
             if length[0] is not None:
                 for okok in length[1]:
-                    OrderDetails.objects.create(pdftable=pdf_query, code=okok[0], type_design=okok[1], colour=okok[2])
+                    OrderDetails.objects.create(barcode=length[0], pdftable=pdf_query, code=okok[0], type_design=okok[1], colour=okok[2])
 
     pdf_query.status = 1
     pdf_query.save()

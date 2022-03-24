@@ -5,6 +5,28 @@ from django.db import models
 # Create your models here.
 
 
+class ProductSize(models.Model):
+    class Meta:
+        db_table = 'ProductSize'
+
+    title = models.CharField(max_length=200, default='***')
+    size = models.CharField(max_length=200, default='***')
+
+    def __str__(self):
+        return self.title
+
+
+class ProductType(models.Model):
+    class Meta:
+        db_table = 'ProductType'
+
+    title = models.CharField(max_length=200, default='***')
+    type = models.CharField(max_length=200, default='***')
+
+    def __str__(self):
+        return self.title
+
+
 class PdfTable(models.Model):
     class Meta:
         db_table = 'PdfTable'
@@ -24,6 +46,7 @@ class OrderDetails(models.Model):
         db_table = 'OrderDetails'
 
     pdftable = models.ForeignKey(PdfTable, on_delete=models.CASCADE, related_name="pdftable")
+    barcode = models.CharField(max_length=200, default='***')
     code = models.CharField(max_length=200, default='***')
     type_design = models.CharField(max_length=200, default='***')
     colour = models.CharField(max_length=200, default='***')
