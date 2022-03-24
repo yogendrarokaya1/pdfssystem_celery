@@ -39,6 +39,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">PDFID</th>
+              <th scope="col">Barcode</th>
               <th scope="col">CODE</th>
               <th scope="col">TYPE+DESIGN</th>
               <th scope="col">COLOUR</th>
@@ -50,6 +51,7 @@
           {% for item in pdf_data_query %}
             <tr>
               <td>{{forloop.counter}}</td>
+              <td>{{item.barcode}}</td>
               <td>{{item.pdftable_id}}</td>
               <td>{{item.code}}</td>
               <td>{{item.type_design}}</td>
