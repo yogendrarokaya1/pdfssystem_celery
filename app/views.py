@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from .models import PdfTable, OrderDetails
+from .models import PdfTable, OrderDetails, OrderDetailsFinal
 from .tasks import test_func
 from django.contrib import messages
 
@@ -8,6 +8,7 @@ from django.contrib import messages
 
 
 def index(request):
+
     return render(request, 'index.html')
 
 
@@ -20,6 +21,13 @@ def list_page(request, ids):
     pdf_data_query = OrderDetails.objects.filter(pdftable_id=ids)
     context = {'pdf_data_query': pdf_data_query, 'pdf_query': pdf_query}
     return render(request, 'table_list.html', context)
+
+
+def final_list_page(request, ids):
+    pdf_query = PdfTable.objects.get(id=ids)
+    pdf_final_data_query = OrderDetailsFinal.objects.filter(pdftable_id=ids)
+    context = {'pdf_final_data_query': pdf_final_data_query, 'pdf_query': pdf_query}
+    return render(request, 'final_list.html', context)
 
 
 def pdf_list_page(request):
@@ -37,8 +45,6 @@ def pdf_post(request):
 
 
 def pdf_convert(request, ids):
-
-    url = '/list_page/' + str(ids)
 
     test_func.delay(ids)
     messages.success(request, 'Pdf convert on process')

@@ -64,7 +64,8 @@
                 </button>
 
                 {% if item.status == 1 %}
-                    <a href="/list_page/{{item.id}}"><button type="button" class="btn btn-primary">View Data</button></a>
+                    <a href="/list_page/{{item.id}}"><button type="button" class="btn btn-primary">View Initial Data</button></a>
+                    <a href="/final_list_page/{{item.id}}"><button type="button" class="btn btn-primary">View Final Data</button></a>
                 {% endif %}
           </td>
         </tr>

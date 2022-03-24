@@ -1,17 +1,18 @@
+import re
+
 from celery import shared_task
 
 from barcode import main as mn
 from image_crop import withOCR as oc
 
-from .models import PdfTable, OrderDetails
-
+from .models import PdfTable, OrderDetails, ProductType, ProductSize, OrderDetailsFinal
+from django.db.models.functions import Length
 import os
 import shutil
 
 
 @shared_task(bind=True)
 def test_func(self, ids):
-
     pdf_query = PdfTable.objects.get(id=ids)
     outputdir = 'movable/'
     mn.convert(pdf_query.files.path, pdf_query.title, outputdir)
@@ -24,10 +25,35 @@ def test_func(self, ids):
         for length in final_per_obj:
             if length[0] is not None:
                 for okok in length[1]:
-                    OrderDetails.objects.create(barcode=length[0], pdftable=pdf_query, code=okok[0], type_design=okok[1], colour=okok[2])
+                    OrderDetails.objects.create(barcode=length[0], pdftable=pdf_query, code=okok[0],
+                                                type_design=okok[1], colour=okok[2])
 
     pdf_query.status = 1
     pdf_query.save()
+
+    product_size_query = ProductSize.objects.all().order_by(Length('title').desc())
+    product_type_query = ProductType.objects.all()
+    order_details_query = OrderDetails.objects.filter(status=0)
+
+    _size = ''
+    _type = ''
+    for each in order_details_query:
+
+        for item in product_size_query:
+
+            if re.search(item.title.casefold(), each.type_design):
+                _size = item.size
+                break
+
+        for item in product_type_query:
+            if re.search(item.title.casefold(), each.type_design):
+                _type = item.type
+                break
+
+        OrderDetailsFinal.objects.create(pdftable=each.pdftable, barcode=each.barcode, code=each.code, type=_type,
+                                         size=_size, colour=each.colour)
+        each.status = 1
+        each.save()
 
     try:
         shutil.rmtree('movable')
