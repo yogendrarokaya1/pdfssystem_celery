@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Tables Page</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/toastr.min.css' %}">
+</head>
+
+<body>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'info' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'warning' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% elif message.tags == 'error' %}
+                <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+            {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+    <div class="py-5 text-center">
+        <h2>Data related to the PDF {{pdf_query.title}} </h2>
+        <p class="lead">Some Data May be inaccessible.</p>
+    </div>
+
+    <div class="table-responsive" >
+        <table class="table table-striped table-sm" id="_append">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">PDFID</th>
+              <th scope="col">barcode</th>
+              <th scope="col">code</th>
+              <th scope="col">type</th>
+              <th scope="col">colour</th>
+              <th scope="col">size</th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+          {% for item in pdf_final_data_query %}
+            <tr>
+            <form action="/order_details_update/{{item.id}}" method="post">
+                {% csrf_token %}
+                  <td>{{forloop.counter}}</td>
+                  <td>{{item.pdftable_id}}</td>
+                  <td>{{item.barcode}}</td>
+                  <td>{{item.code}}</td>
+
+                  <td><input type="text" name="type" value="{{item.type}}" placeholder="Enter type"></td>
+                  <td><input type="text" name="colour" value="{{item.colour}}" placeholder="Enter type"></td>
+                  <td><input type="text" name="size" value="{{item.size}}" placeholder="Enter type"></td>
+                  <td><button type="submit" class="btn btn-primary">Update</button></td>
+            </form>
+                <td><button type="button" data-delorderlistid={{item.id}} class="btn btn-danger">Delete</button></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+
+        </table>
+      </div>
+
+<!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+    <script src="{% static 'js/toastr.min.js' %}"></script>
+<script>
+    window.CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script>
+
+    var delorderbtns = document.getElementsByClassName('btn btn-danger');
+
+    for (i=0; i < delorderbtns.length; i++){
+    delorderbtns[i].addEventListener('click', function(){
+        var orderlistid = this.dataset.delorderlistid;
+        console.log('orderlistid:',orderlistid)
+        delete_finalorderlist(orderlistid)
+    })
+}
+
+    function delete_finalorderlist(orderlistid){
+        var url = '{% url 'order_details_del_app' %}'
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'X-CSRFToken': window.CSRF_TOKEN,
+            },
+            body:JSON.stringify({'orderlistid':orderlistid})
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            if (data['_actr'] == 'True')
+                toastr.success('Order deleted!')
+                $("#_append").load(" #_append > *");
+        })
+    }
+</script>
+</body>
+
+</html>
