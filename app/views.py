@@ -26,9 +26,15 @@ def list_page(request, ids):
 
 
 def final_list_page(request, ids):
+    photo_list = []
     pdf_query = PdfTable.objects.get(id=ids)
     pdf_final_data_query = OrderDetailsFinal.objects.filter(pdftable_id=ids)
-    context = {'pdf_final_data_query': pdf_final_data_query, 'pdf_query': pdf_query}
+    for each in pdf_final_data_query:
+        each_query = OrderDetails.objects.filter(id=each.order_details_id).last()
+        photo_list.append(each_query.photo.url)
+
+    data_obj = zip(pdf_final_data_query, photo_list)
+    context = {'data_obj': data_obj, 'pdf_query': pdf_query}
     return render(request, 'final_list.html', context)
 
 

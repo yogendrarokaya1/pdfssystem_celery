@@ -52,7 +52,7 @@ def test_func(self, ids):
                 break
 
         OrderDetailsFinal.objects.create(pdftable=each.pdftable, barcode=each.barcode, code=each.type_design, type=_type,
-                                         size=_size, colour=each.colour)
+                                         size=_size, colour=each.colour, order_details=each)
         each.status = 1
         each.save()
 

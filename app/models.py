@@ -67,6 +67,7 @@ class OrderDetailsFinal(models.Model):
     type = models.CharField(max_length=200, default='***')
     size = models.CharField(max_length=200, default='***')
     colour = models.CharField(max_length=200, default='***')
+    order_details = models.ForeignKey(OrderDetails, on_delete=models.CASCADE, related_name="pdftabledetails", default=1)
 
     def __str__(self):
         return self.barcode
