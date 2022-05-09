@@ -51,6 +51,7 @@ class OrderDetails(models.Model):
     type_design = models.CharField(max_length=200, default='***')
     colour = models.CharField(max_length=200, default='***')
     status = models.BooleanField(default=0, help_text='0:processing, 1:completed')
+    photo = models.ImageField(blank=True, null=True, upload_to='photos/table_photo', default='default')
 
     def __str__(self):
         return '%s %s' % (self.code, self.type_design)

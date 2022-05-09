@@ -34,7 +34,7 @@ def image_crop(image, pdf_name, image_name):
             each_text = ocr_code.text(image_dir, pdf_name, row, column, image_name)
             required_text_obj = text_extraction.text_to_useable(each_text)
 
-            obj_final.append((each_barcode, required_text_obj))
+            obj_final.append((each_barcode, required_text_obj, image_dir, pdf_name, row, column))
             x1 += 551
             x2 += 551
         x1 = 0
