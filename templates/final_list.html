@@ -57,7 +57,7 @@
             <form action="/order_details_update/{{item.id}}" method="post">
                 {% csrf_token %}
                   <td>{{forloop.counter}}</td>
-                  <td><img src="{{item.1}}"></td>
+                  <td><img src="{{item.1}}" width="100%"></td>
                   <td>{{item.0.pdftable_id}}</td>
                   <td>{{item.0.barcode}}</td>
                   <td>{{item.0.code}}</td>
