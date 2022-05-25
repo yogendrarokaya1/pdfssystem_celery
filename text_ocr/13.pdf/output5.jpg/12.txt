@@ -1,0 +1,26 @@
+***start***
+FH-NE MAXICUBE-KOO-W.
+Maxicube Wool/Cash print Koori
+colour: colour 01
+
+size: stk. # 421208 OTO- 1458
+
+96 AMMAN |
+
+0581
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+if
+
+***end***

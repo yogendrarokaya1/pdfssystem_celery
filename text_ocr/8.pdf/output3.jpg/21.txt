@@ -1,0 +1,30 @@
+***start***
+FH-NE MAXICUBE-GE-WC.
+Maxicube Wool/Cash Garden Eden
+colour: colour 173
+
+size: stk. # 419723 OTO- 1422
+
+629975
+
+05819 C5 9
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+4
+
+***end***

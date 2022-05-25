@@ -1,0 +1,28 @@
+***start***
+FH-NE MAXICUBE-AZ-WC
+Maxicube Wool/Cash print Amazo ne
+colour: colour 01
+
+size: stk. # 421033 OTO- 1458
+
+63005
+
+05819
+
+   
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+4 54
+
+***end***

@@ -1,0 +1,30 @@
+***start***
+FH-NE MAXICUBE-TF-WC
+Maxicube Wool/Cash Transformat ion
+colour: colour 01
+
+size: stk. # 418289 OTO- 1408
+
+IIMA
+
+058196
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+4
+
+ 
+
+***end***

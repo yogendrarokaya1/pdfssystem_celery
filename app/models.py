@@ -68,10 +68,26 @@ class OrderDetailsFinal(models.Model):
     size = models.CharField(max_length=200, default='***')
     colour = models.CharField(max_length=200, default='***')
     order_details = models.ForeignKey(OrderDetails, on_delete=models.CASCADE, related_name="pdftabledetails", default=1)
+    photo = models.ImageField(blank=True, null=True, default='default')
 
     def __str__(self):
         return self.barcode
 
+
+class DistinctFinal(models.Model):
+    class Meta:
+        db_table = 'DistinctFinal'
+
+    distinct_final = models.ForeignKey(OrderDetailsFinal, on_delete=models.CASCADE, related_name="orderdistinctfinal")
+    barcode = models.CharField(max_length=200, default='***')
+    code = models.CharField(max_length=200, default='***')
+    type = models.CharField(max_length=200, default='***')
+    size = models.CharField(max_length=200, default='***')
+    colour = models.CharField(max_length=200, default='***')
+    photo = models.ImageField(blank=True, null=True, default='default')
+
+    def __str__(self):
+        return self.barcode
 
 
 

@@ -2,7 +2,7 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from .models import PdfTable, OrderDetails, OrderDetailsFinal
+from .models import PdfTable, OrderDetails, OrderDetailsFinal, DistinctFinal
 from .tasks import test_func
 from django.contrib import messages
 
@@ -95,5 +95,48 @@ def order_details_update(request, ids):
         messages.success(request, 'Order Updated!')
         return redirect(url)
 
+#
+# def distinct_records(request):
+#     total_orders = OrderDetailsFinal.objects.all()
+#     for item in total_orders:
+#         current_barcode = item.barcode
+#
+#         if DistinctFinal.objects.filter(barcode=current_barcode).last():
+#             pass
+#         else:
+#             DistinctFinal.objects.create(distinct_final=item, barcode=item.barcode, code=item.code, type=item.type, size=item.size,
+#                                          colour=item.colour, photo=item.photo)
+#     return JsonResponse({'success': 1})
 
 
+def distinct_page(request):
+    data_obj = DistinctFinal.objects.all()
+    context = {'data_obj': data_obj}
+    return render(request, 'distinct.html', context)
+
+
+def distinct_page_del(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        product_id = data['orderlistid']
+
+        details_query = DistinctFinal.objects.get(id=product_id)
+        details_query.delete()
+        return JsonResponse({'_actr': 'True'})
+
+
+def distinct_page_update(request, ids):
+    if request.method == 'POST':
+
+        _type = request.POST.get('type')
+        _colour = request.POST.get('colour')
+        _size = request.POST.get('size')
+
+        order_query = DistinctFinal.objects.filter(id=ids).last()
+        order_query.type = _type
+        order_query.size = _size
+        order_query.colour = _colour
+
+        order_query.save()
+        messages.success(request, 'Order Updated!')
+        return redirect('distinct_page')

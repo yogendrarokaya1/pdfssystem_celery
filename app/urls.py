@@ -12,4 +12,8 @@ urlpatterns = [
     path('pdf_delete/<int:ids>', views.pdf_delete, name='pdf_delete_app'),
     path('order_details_update/<int:ids>', views.order_details_update, name='order_details_update_app'),
     path('order_details_del/', views.order_details_del, name='order_details_del_app'),
+    path('distinct_page/', views.distinct_page, name='distinct_page'),
+    path('distinct_page_del/', views.distinct_page_del, name='distinct_page_del'),
+    path('distinct_page_update/<int:ids>', views.distinct_page_update, name='distinct_page_update'),
+    # path('distinct_records/', views.distinct_records, name='distinct_records'),
 ]

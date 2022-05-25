@@ -1,0 +1,28 @@
+***start***
+FH-NE MAXICUBE-TM-WC.
+Maxicube Wool/Cash Timor
+colour: colour 06
+
+size: stk. # 418342 OTO- 1408
+
+6 I! MN
+
+05819
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+4
+
+***end***

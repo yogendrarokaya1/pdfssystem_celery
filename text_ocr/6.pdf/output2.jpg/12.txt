@@ -1,0 +1,19 @@
+***start***
+FH-NE MAXICUBE-TF-WC
+Maxicube Wool/Cash Transformat ion
+colour: colour 02
+
+ 
+
+ 
+
+size: stk. # 418342 OTO- 1408
+4 HUMINT LTA
+
+ 
+
+ 
+
+ 
+
+***end***

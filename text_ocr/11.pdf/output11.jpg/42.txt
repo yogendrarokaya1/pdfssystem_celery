@@ -1,0 +1,26 @@
+***start***
+FH-NE SUPERPATCH-GE
+Supercube Patch Garden Eden
+colour: colour 50
+
+size: stk. # 420316 OTO- 1426
+
+6 1 A |
+
+05879
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+4
+
+***end***
